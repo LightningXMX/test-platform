@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+    #set( $foo = "test" )
+    $!{foo}
+
+<div>$!{message}</div>
+
+
+</body>
+<html>

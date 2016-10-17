@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+       Copyright 2015-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lightning.testplatform.mapper.TestGroupMapper">
+
+
+
+    <resultMap type="com.lightning.testplatform.domain.TestGroupDO" id="TestGroupDO">
+        <!--column是数据库字段名 property是DO中属性名-->
+        <result column="id" property="id"/>
+        <result column="test_group_name" property="testGroupName"/>
+        <result column="biz_name" property="bizName"/>
+        <result column="desc_info" property="descInfo"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+    <!-- 全列名 -->
+    <sql id="columns_testgroup">
+        id,
+        test_group_name,
+        biz_name,
+        desc_info,
+        gmt_create,
+        gmt_modified
+    </sql>
+
+    <select id="selectById" resultMap="TestGroupDO">
+        select <include refid="columns_testgroup"/> from test_group where id = #{id}
+    </select>
+
+    <select id="select"
+            parameterType="com.lightning.testplatform.domain.query.TestGroupQuery"
+            resultMap="TestGroupDO">
+        select <include refid="columns_testgroup"/>
+        from test_group
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="testGroupName != null">
+                AND test_group_name = #{testGroupName}
+            </if>
+            <if test="bizName != null">
+                AND biz_name = #{bizName}
+            </if>
+
+        </where>
+
+        <![CDATA[ order by gmt_create desc
+	       ]]>
+        <if test="paginator != null">
+            <![CDATA[ limit
+			#{paginator.startRow}, #{paginator.pageSize}
+	       ]]>
+        </if>
+    </select>
+
+    <select id="count"
+            parameterType="com.lightning.testplatform.domain.query.TestGroupQuery"
+            resultType="java.lang.Long">
+        select count(id) AS size
+        from test_group
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="testGroupName != null">
+                AND test_group_name = #{testGroupName}
+            </if>
+            <if test="bizName != null">
+                AND biz_name = #{bizName}
+            </if>
+
+        </where>
+
+    </select>
+
+    <insert id="insert" parameterType="com.lightning.testplatform.domain.TestGroupDO">
+        insert into test_group
+        (
+         test_group_name,
+         biz_name,
+         desc_info,
+         gmt_create,
+         gmt_modified
+
+         ) values (
+
+         #{testGroupName},
+         #{bizName},
+         #{descInfo},
+           now(),
+           now()
+        )
+
+        <selectKey resultType="long" keyProperty="id"><![CDATA[SELECT LAST_INSERT_ID() AS ID ]]></selectKey>
+
+    </insert>
+</mapper>

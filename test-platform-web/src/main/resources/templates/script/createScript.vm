@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>添加脚本</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrapValidator.css"/>
+    <script src="/js/jquery-3.1.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrapValidator.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/codemirror/addon/scroll/simplescrollbars.css">
+    <script src="/codemirror/addon/scroll/simplescrollbars.js"></script>
+    <script src="/codemirror/mode/groovy/groovy.js"></script>
+    <link rel="stylesheet" href="/codemirror/theme/ambiance.css">
+    <script src="/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="/codemirror/addon/edit/matchtags.js"></script>
+
+    <script src="/codemirror/hint/show-hint.js"></script>
+
+    <script src="/codemirror/hint/javascript-hint.js"></script>
+
+    <link rel="stylesheet" href="/codemirror/hint/show-hint.css">
+
+
+    <style type="text/css">
+        .CodeMirror {border: 1px solid #eee;}
+        /*.CodeMirror-scroll { height: 100% ;overflow-y: hidden;  overflow-x: auto;}*/
+    </style>
+
+
+
+</head>
+
+<body>
+
+#*导航栏*#
+    #parse("nav.vm")
+
+
+
+<div class="container">
+    <div class="panel panel-info">
+
+        #if($!resultDO.isSuccess() == false)
+            <div class="alert alert-danger" role="alert">
+                提示:$!{resultDO.errorMsg}
+            </div>
+        #end
+
+
+        <!-- form: -->
+        <section>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="page-header">
+                    <h2>添加脚本</h2>
+                </div>
+
+                <form id="defaultForm" method="post" class="form-horizontal" action="target.php">
+
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">测试用例名称</label>
+##                        <div class="col-lg-5">
+##                            <input type="text" class="form-control" name="testCaseName"/>
+##                        </div>
+##                    </div>
+##
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">描述</label>
+##                        <div class="col-lg-9">
+##                            <input type="text" class="form-control" name="testCaseDesc"/>
+##                        </div>
+##                    </div>
+##
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">Host</label>
+##                        <div class="col-lg-5">
+##                            <input type="text" class="form-control" name="host"/>
+##                        </div>
+##                    </div>
+##
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">Port</label>
+##                        <div class="col-lg-5">
+##                            <input type="text" class="form-control" name="port"/>
+##                        </div>
+##                    </div>
+##
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">Path</label>
+##                        <div class="col-lg-5">
+##                            <input type="text" class="form-control" name="path"/>
+##                        </div>
+##                    </div>
+##
+##                    <div class="form-group">
+##                        <label class="col-lg-3 control-label">Parameters</label>
+##                        <div class="col-lg-5">
+##                            <textarea class="form-control" name="parameters" rows="5"></textarea>
+##                        </div>
+##                    </div>
+
+
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">脚本概述</h3>
+                        </div>
+                        <div class="panel-body">
+                            <label class="control-label">名称(请用英文且唯一)</label>
+
+                            <div class="controls">
+                                <input type="text" name="name" placeholder="请输入名称" class="form-control" value="$!ruleScriptDO.name">
+                                <span class="help-block">脚本名称，不允许重复</span>
+                            </div>
+
+                            <label class="control-label">描述</label>
+
+                            <div class="controls">
+                                <input type="description" name="description" placeholder="" class="form-control" value="$!ruleScriptDO.name">
+
+                            </div>
+
+                            <label class="control-label">脚本内容</label>
+                            <textarea class="form-control" id="scriptContent" name="script_editing"
+                                      rows="10"></textarea>
+
+                            </br>
+                            <div class="form-group">
+                                <div class="col-lg-9 col-lg-offset-3">
+                                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up">保存</button>
+##                                    <button type="button" class="btn btn-info" id="validateBtn">Manual validate</button>
+                                    <button type="button" class="btn btn-info" id="resetBtn">重置表单</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- :form -->
+
+
+    </div>
+</div>
+
+    #parse("formValidator.vm")
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+
+//    CodeMirror.commands.autocomplete = function(cm) {
+//        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
+//    }
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("scriptContent"), {
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+//        scrollbarStyle: "simple",
+        autoCloseBrackets: true,
+        matchBrackets: true,
+
+//        matchTags: {bothTags: true},
+        mode: "text/x-groovy",
+        lineNumbers: true,
+
+//        styleActiveLine: true,
+        styleActiveLine: true,
+        indentUnit: 4,
+        theme:"ambiance"
+
+
+//
+    });
+
+
+
+</script>
+</body>
+</html>

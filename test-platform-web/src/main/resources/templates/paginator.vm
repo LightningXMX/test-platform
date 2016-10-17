@@ -1,0 +1,28 @@
+<script>
+##    http://jqpaginator.keenwon.com/
+    $(function () {
+
+        $("#page").jqPaginator({
+            totalPages: $!{paginator.totalPageSize},
+            visiblePages: 5,
+            currentPage: $!{paginator.currentPageNum},
+            first: '<li class="first"><a href="/testGroup/testGroupList?pageNum=1">First<\/a><\/li>',
+            #set($prevNum = $!{paginator.currentPageNum} - 1)
+            prev: '<li class="prev"><a href="/testGroup/testGroupList?pageNum=$!{prevNum}">Previous<\/a><\/li>',
+            #set($nextNum = $!{paginator.currentPageNum} + 1)
+            next: '<li class="next"><a href="/testGroup/testGroupList?pageNum=$!{nextNum}">Next<\/a><\/li>',
+            last: '<li class="last"><a href="/testGroup/testGroupList?pageNum=$!{paginator.totalPageSize}">Last<\/a><\/li>',
+            page: '<li class="page"><a href="/testGroup/testGroupList?pageNum={{page}}">{{page}}<\/a><\/li>',
+
+            onPageChange: function (num, type) {
+//                alert(num)
+//                window.location.href="testGroupList?pageNum="+num
+                $('#page-text').html('当前第' + num + '页');
+
+            }
+        });
+
+
+    })
+</script>
+

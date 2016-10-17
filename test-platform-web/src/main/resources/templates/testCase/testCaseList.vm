@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>测试用例列表</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel='stylesheet' type='text/css' href='/css/bootstrap.css'>
+</head>
+
+<body>
+
+#*导航栏*#
+#parse("nav.vm")
+
+
+
+<div class="container">
+    <div class="panel panel-info">
+
+        #if($!resultDO.isSuccess() == false)
+            <div class="alert alert-danger" role="alert">
+                提示:$!{resultDO.errorMsg}
+            </div>
+        #end
+
+
+        <div class="panel-heading">
+            <h3 class="panel-title">测试用例列表</h3>
+        </div>
+        <div class="panel-body">
+##            http://www.bootcss.com/p/bootstrap-form-builder/
+            <a href="/testCase/addTestCase?testGroupId=$!{testGroupId}" class="btn btn-primary active" role="button" align="right">添加</a>
+##            <a href='#example' data-toggle='modal' class='btn btn-primary '>点我弹出拟态框</a>
+##            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+##               添加
+##            </button>
+        </div>
+    ##        Panel content
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+##                <th>#</th>
+                <th>测试用例名称</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            #foreach($testCase in $!{resultDO.getModule()})
+
+            <tbody>
+            <tr>
+##                <th scope="row">1</th>
+                <td><a href="/testCase/addTestCase?testGroupId=$!{testGroupId}&testCaseId=$testCase.id" class="">$testCase.testCaseName</a></td>
+                <td>$testCase.descInfo</td>
+                <td>
+
+                    <a href="/rule/module_detail.htm?moduleName=$!item.name">编辑</a>
+                    <a href="#">删除</a>
+                    <a href="#">测试</a>
+                ##                <a href="#" data-href="/rule/delete.htm?ruleId=$!item.id&moduleName=$!item.name" data-toggle="modal" data-modulename="$!item.name" data-target="#confirm-delete">删除</a>
+                ##                <a href="/sandbox/sandbox.htm?id=$!item.id">沙箱执行</a>
+                ##                <a href="/rule/historyScript.htm?ruleName=$!item.name">历史版本</a>
+                ##                <a href="/sandbox/regressionTest.htm?ruleName=$!item.name">回归验证</a>
+                </td>
+            </tr>
+
+            </tbody>
+            #end
+        </table>
+##        分页
+        <div class="page" margin-right:auto; margin-left:auto;>
+
+            <p id="page" class="pagination"></p>
+            <p id="page-text"></p>
+        </div>
+
+
+    </div>
+</div>
+
+
+##<div class='container'>
+##    <h4>我是拟态框的例子</h4>
+##    <div id='example' class='modal hide fade in' style='display:none;'>
+##        <div class='modal-header'>
+##            <a class='close' data-dismiss='modal'>X</a>
+##            <h3>我是拟态框的头部</h3>
+##        </div>
+##        <div class='modal-body'>
+##            <h4>我是拟态框的中间部分</h4>
+##            <p>我是描述部分</p>
+##        </div>
+##        <div class='modal-footer'>
+##            <a href='#' class='btn btn-success'>成功</a>
+##            <a href='#' class='btn' data-dismiss='modal'>关闭</a>
+##        </div>
+##
+##    </div>
+##
+##    <p>
+##
+##        <a href='#example' data-toggle='modal' class='btn btn-primary btn-large'>点我弹出拟态框</a>
+##
+##    </p>
+##
+##</div>
+##<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+##    <div class="modal-dialog">
+##        <div class="modal-content">
+##            <div class="modal-header">
+##                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+##                <h4 class="modal-title" id="myModalLabel">系统提示</h4>
+##            </div>
+##            <div class="modal-body">
+##                <p>确认删除?</p>
+##                <p class="modulename">$!item.name</p>
+##            </div>
+##            <div class="modal-footer">
+##                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+##                <a class="btn btn-danger btn-ok">删除</a>
+##            </div>
+##        </div>
+##    </div>
+##</div>
+
+
+
+    <!-- Modal -->
+##    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+##        <div class="modal-dialog" role="document">
+##            <div class="modal-content">
+##                <div class="modal-header">
+##                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+##                    <h4 class="modal-title" id="myModalLabel">添加测试分组</h4>
+##                </div>
+##                <div class="modal-body">
+##                    <form class="form-horizontal" action="/testGroup/addTestGroup" method="post">
+##                        <fieldset>
+####                            <div id="legend" class="">
+####                                <legend class="">添加测试分组</legend>
+####                            </div>
+##                            <div class="control-group">
+##
+##                                <!-- Text input-->
+##
+##                                    <label class="control-label" for="input01">分组名 </label>
+##
+##                                    <div class="controls">
+##                                        <input name="testGroupName" type="text" placeholder="请输入测试分组名称" class="form-control">
+##                                        <p class="help-block">必填</p>
+##                                    </div>
+##
+##                            </div>
+##
+##                            <div class="control-group">
+##
+##                                <!-- Text input-->
+##                                <label class="control-label" for="input01">业务空间 </label>
+##                                <div class="controls">
+##                                    <input name="bizName" type="text" placeholder="请输入所属业务" class="form-control">
+##                                    <p class="help-block">必填</p>
+##                                </div>
+##                            </div>
+##
+##                            <div class="control-group">
+##
+##                                <!-- Textarea -->
+##                                <label class="control-label">描述</label>
+##                                <div class="controls">
+##                                    <div class="textarea">
+##                                        <textarea name="desInfo" type="" class="form-control"></textarea>
+##                                    </div>
+##                                </div>
+##                            </div>
+##
+##                            <div class="control-group">
+##                                <label class="control-label"></label>
+##
+##                                <!-- Button -->
+##
+##                                    <div class="controls">
+####                                        <button class="btn btn-info">保存</button>
+##                                        <button class="btn btn-info" type="submit">保存</button>
+##                                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+##                                    </div>
+##
+##
+##                            </div>
+####                            <div class="control-group">
+####                            <label class="control-label"></label>
+####
+####                            <!-- Button -->
+####                            <div class="controls">
+####                                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+####                            </div>
+####                        </div>
+##
+##                        </fieldset>
+##                    </form>
+##
+##                </div>
+####                <div class="modal-footer">
+####                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+####                    <button type="button" class="btn btn-primary">Save changes</button>
+####                </div>
+##
+##            </div>
+##
+##        </div>
+##    </div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/js/jquery-3.1.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jqPaginator.min.js"></script>
+    #parse("paginator.vm")
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

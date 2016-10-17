@@ -1,0 +1,3 @@
+# Auto Configure
+com.lightning.testplatform.configure.mybatis.MybatisAutoConfiguration=\
+com.lightning.testplatform.configure.mybatis.MybatisAutoConfiguration
